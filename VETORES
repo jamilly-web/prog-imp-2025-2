@@ -1,0 +1,168 @@
+import java.util.Scanner;
+ 
+public class Jam {
+ 
+    public static void inserirA(int[] v, int i) {
+        Scanner s = new Scanner(System.in);
+        System.out.println("Digite o elemento para inserir no Conjunto A:");
+        int valor = s.nextInt();
+ 
+        while (existeNoVetor(v, valor, i)) {
+            System.out.print("Valor repetido, digite outro: ");
+            valor = s.nextInt();
+        }
+ 
+        v[i] = valor; // Inserir o valor no vetor
+    }
+ 
+    public static void inserirB(int[] v, int i) {
+        Scanner s = new Scanner(System.in);
+        System.out.println("Digite o elemento para inserir no Conjunto B:");
+        int valor = s.nextInt();
+ 
+        while (existeNoVetor(v, valor, i)) {
+            System.out.print("Valor repetido, digite outro: ");
+            valor = s.nextInt();
+        }
+ 
+        v[i] = valor; // Inserir o valor no vetor
+    }
+ 
+    public static boolean existeNoVetor(int[] v, int valor, int i) {
+        for (int j = 0; j < i; j++) {
+            if (v[j] == valor) {
+                return true; // Valor já existe
+            }
+        }
+        return false; // Valor não existe
+    }
+ 
+    public static void imprimirConjuntos(int[] conjuntoA, int[] conjuntoB, int iA, int iB) {
+        System.out.println("Conjunto A: ");
+        for (int i = 0; i < iA; i++) {
+            System.out.print(conjuntoA[i] + " ");
+        }
+        System.out.println("\nConjunto B: ");
+        for (int i = 0; i < iB; i++) {
+            System.out.print(conjuntoB[i] + " ");
+        }
+        System.out.println();
+    }
+ 
+    public static void imprimirUniao(int[] conjuntoA, int[] conjuntoB, int iA, int iB) {
+        int[] uniao = new int[iA + iB];
+        int k = 0;
+ 
+ 
+        for (int i = 0; i < iA; i++) {
+            uniao[k++] = conjuntoA[i];
+        }
+ 
+        for (int i = 0; i < iB; i++) {
+            if (!existeNoVetor(uniao, conjuntoB[i], k)) {
+                uniao[k++] = conjuntoB[i];
+            }
+        }
+ 
+        System.out.println("União de A e B: ");
+        for (int i = 0; i < k; i++) {
+            System.out.print(uniao[i] + " ");
+        }
+        System.out.println();
+    }
+ 
+    public static void imprimirIntersecao(int[] conjuntoA, int[] conjuntoB, int iA, int iB) {
+        System.out.print("Interseção de A e B: ");
+        boolean encontrou = false;
+        for (int i = 0; i < iA; i++) {
+            for (int j = 0; j < iB; j++) {
+                if (conjuntoA[i] == conjuntoB[j]) {
+                    System.out.print(conjuntoA[i] + " ");
+                    encontrou = true;
+                }
+            }
+        }
+        if (!encontrou) {
+            System.out.print("Nenhuma interseção.");
+        }
+        System.out.println();
+    }
+ 
+    public static void imprimirDiferencaAminusB(int[] conjuntoA, int[] conjuntoB, int iA, int iB) {
+        System.out.print("Diferença A - B: ");
+        for (int i = 0; i < iA; i++) {
+            boolean encontrado = false;
+            for (int j = 0; j < iB; j++) {
+                if (conjuntoA[i] == conjuntoB[j]) {
+                    encontrado = true;
+                    break;
+                }
+            }
+            if (!encontrado) {
+                System.out.print(conjuntoA[i] + " ");
+            }
+        }
+        System.out.println();
+    }
+ 
+    public static void imprimirDiferencaBminusA(int[] conjuntoA, int[] conjuntoB, int iA, int iB) {
+        System.out.print("Diferença B - A: ");
+        for (int i = 0; i < iB; i++) {
+            boolean encontrado = false;
+            for (int j = 0; j < iA; j++) {
+                if (conjuntoB[i] == conjuntoA[j]) {
+                    encontrado = true;
+                    break;
+                }
+            }
+            if (!encontrado) {
+                System.out.print(conjuntoB[i] + " ");
+            }
+        }
+        System.out.println();
+    }
+ 
+    public static void main(String[] args) {
+        Scanner s = new Scanner(System.in);
+ 
+        int[] conjuntoA = new int[30];
+        int[] conjuntoB = new int[30];
+        int iA = 0, iB = 0;
+ 
+        while (true) {
+            System.out.println("\n1 - Inserir elemento no Conjunto A");
+            System.out.println("2 - Inserir elemento no Conjunto B");
+            System.out.println("3 - Imprimir os Conjuntos A e B");
+            System.out.println("4 - Gerar e imprimir a união de A e B");
+            System.out.println("5 - Gerar e imprimir a interseção de A e B");
+            System.out.println("6 - Gerar e imprimir a diferença entre A e B");
+            System.out.println("7 - Gerar e imprimir a diferença entre B e A");
+            System.out.println("8 - Sair");
+            System.out.print("Escolha a opção: ");
+            int op = s.nextInt();
+ 
+            if (op == 1) {
+                inserirA(conjuntoA, iA);
+                iA++;
+            } else if (op == 2) {
+                inserirB(conjuntoB, iB);
+                iB++;
+            } else if (op == 3) {
+                imprimirConjuntos(conjuntoA, conjuntoB, iA, iB);
+            } else if (op == 4) {
+                imprimirUniao(conjuntoA, conjuntoB, iA, iB);
+            } else if (op == 5) {
+                imprimirIntersecao(conjuntoA, conjuntoB, iA, iB);
+            } else if (op == 6) {
+                imprimirDiferencaAminusB(conjuntoA, conjuntoB, iA, iB);
+            } else if (op == 7) {
+                imprimirDiferencaBminusA(conjuntoA, conjuntoB, iA, iB);
+            } else if (op == 8) {
+                System.out.println("Saindo...");
+                break;
+            } else {
+                System.out.println("Opção inválida!");
+            }
+        }
+    }
+}# prog-imp-2025-2
