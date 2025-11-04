@@ -29,7 +29,7 @@ import java.util.Scanner;
 
     }
     public static void imprimirProduto(Produto p) {
-        System.out.printf("(%s,%s,%.2f,%n) \n", p.titulo,p.descricao,p.precoUnitario,p.qtdEstoque);
+        System.out.printf("(%s,%s,%.2f,%d) \n", p.titulo,p.descricao,p.precoUnitario,p.qtdEstoque);
         //System.out.println(p);
     }
     }
